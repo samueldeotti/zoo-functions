@@ -7,6 +7,8 @@ const getSpeciesByIds = (ids, id2) => {
     return [dataEntries.find((specie) => specie.id === ids)];
   }
 
+  // const teste = dataEntries.map((specie) => ((specie.id === ids || specie.id === id2) ? specie : ''));
+
   const arraySpecies = [];
   dataEntries.forEach((specie) => {
     if (specie.id === ids || specie.id === id2) arraySpecies.push(specie);
