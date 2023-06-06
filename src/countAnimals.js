@@ -1,7 +1,7 @@
 const data = require('../data/zoo_data');
 
 const countAnimals = (animal) => {
-  const dataEntries = Object.values(data)[0];
+  const dataEntries = data.species; // data.species substitui esse cara
   if (!animal) {
     const obj = {};
     const name = dataEntries.map((animalName) => animalName.name);

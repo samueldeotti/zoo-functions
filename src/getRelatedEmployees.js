@@ -9,10 +9,8 @@ const isManager = (id) => {
 
 const getRelatedEmployees = (managerId) => {
   if (isManager(managerId)) {
-    const dataEntries = Object.values(data)[1];
-    const idManagers = dataEntries.filter((element) => (element.managers[0] === managerId));
-    const employees = idManagers.map((element) => `${element.firstName} ${element.lastName}`);
-    return employees;
+    const idManagers = data.employees.filter((element) => (element.managers[0] === managerId));
+    return idManagers.map((element) => `${element.firstName} ${element.lastName}`);
   }
   throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
 };
