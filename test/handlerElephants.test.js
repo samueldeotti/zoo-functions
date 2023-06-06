@@ -8,7 +8,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants(5)).toBe('Parâmetro inválido, é necessário uma string');
   });
   test('Verifica se quando o parametro passado for diferente de "count", "names", "averageAge", "location", "popularity", "availability", retorna null', () => {
-    expect(handlerElephants('errado')).toBeNull();
+    expect(handlerElephants('diferente')).toBeNull();
   });
   test('Verifica se "count" retorna a quantidade desejada', () => {
     expect(handlerElephants('count')).toBe(4);
