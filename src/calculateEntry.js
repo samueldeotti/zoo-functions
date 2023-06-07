@@ -9,16 +9,9 @@ const countEntrants = (entrants) => {
 
 const calculateEntry = (entrants) => {
   if (!entrants) return 0;
-  const { prices } = data;
   const quantity = Object.values(countEntrants(entrants));
   const array = ['child', 'adult', 'senior'];
-  let value = 0;
-  quantity.forEach((element, index) => {
-    value += element * prices[array[index]];
-  });
-  return value;
-
-  // const quantity = Object.values(countEntrants(entrants)).reduce((acc, curr) => acc + curr, 0);
+  return quantity.reduce((acc, curr, index) => acc + curr * data.prices[array[index]], 0);
 };
 
 module.exports = { calculateEntry, countEntrants };
