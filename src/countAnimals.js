@@ -4,9 +4,8 @@ const countAnimals = (animal) => {
   const dataEntries = data.species; // data.species substitui esse cara
   if (!animal) {
     const obj = {};
-    const name = dataEntries.map((animalName) => animalName.name);
     const quantity = dataEntries.map((size) => size.residents.length);
-    name.forEach((element, index) => {
+    dataEntries.map((animalName) => animalName.name).forEach((element, index) => {
       obj[element] = quantity[index];
     });
     return obj;

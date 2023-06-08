@@ -11,7 +11,8 @@ const calculateEntry = (entrants) => {
   if (!entrants) return 0;
   const quantity = Object.values(countEntrants(entrants));
   const array = ['child', 'adult', 'senior'];
-  return quantity.reduce((acc, curr, index) => acc + curr * data.prices[array[index]], 0);
+  return quantity.reduce((totalPrice, peopleByAge, priceByAge) =>
+    totalPrice + peopleByAge * data.prices[array[priceByAge]], 0);
 };
 
 module.exports = { calculateEntry, countEntrants };
