@@ -5,41 +5,25 @@ const msgMonday = () => ({
   exhibition: 'The zoo will be closed!',
 });
 
-const openingData = (day) => {
-  const hours = Object.values(data.hours[day]);
-  if (day === 'Monday') return { Monday: msgMonday() };
-  return {
-    [day]: {
-      officeHour: `Open from ${hours[0]}am until ${hours[1]}pm`,
+const allHours = (hours) => Object.keys(hours).reduce((acc, day) => {
+  const hoursRunning = Object.values(data.hours[day]);
+  if (day === 'Monday') {
+    acc[day] = msgMonday();
+  } else {
+    acc[day] = {
+      officeHour: `Open from ${hoursRunning[0]}am until ${hoursRunning[1]}pm`,
       exhibition: data.species
         .filter((specie) => specie.availability.indexOf(day) > -1)
         .map((specie) => specie.name),
-    },
-  };
-};
-
-const allHours = (hours) => {
-  const days = Object.keys(hours);
-  return days.reduce((acc, day) => {
-    const hoursRunning = Object.values(data.hours[day]);
-    if (day === 'Monday') {
-      acc[day] = msgMonday();
-    } else {
-      acc[day] = {
-        officeHour: `Open from ${hoursRunning[0]}am until ${hoursRunning[1]}pm`,
-        exhibition: data.species
-          .filter((specie) => specie.availability.indexOf(day) > -1)
-          .map((specie) => specie.name),
-      };
-    }
-    return acc;
-  }, {});
-};
+    };
+  }
+  return acc;
+}, {});
 
 const getSchedule = (scheduleTarget) => {
   const { species, hours } = data;
   const isDay = Object.keys(hours).find((day) => day === scheduleTarget);
-  if (isDay) return openingData(scheduleTarget);
+  if (isDay) return ({ [scheduleTarget]: allHours(hours)[scheduleTarget] });
   if (!scheduleTarget) return allHours(hours);
 
   const isAnimal = species.find((specie) =>
