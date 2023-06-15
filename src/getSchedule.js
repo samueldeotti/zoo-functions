@@ -22,13 +22,13 @@ const allHours = (hours) => Object.keys(hours).reduce((acc, day) => {
 
 const getSchedule = (scheduleTarget) => {
   const { species, hours } = data;
-  const isDay = Object.keys(hours).find((day) => day === scheduleTarget);
-  if (isDay) return ({ [scheduleTarget]: allHours(hours)[scheduleTarget] });
-  if (!scheduleTarget) return allHours(hours);
 
   const isAnimal = species.find((specie) =>
     specie.name === scheduleTarget);
   if (isAnimal) return isAnimal.availability;
+  const isDay = Object.keys(hours).find((day) => day === scheduleTarget);
+  if (isDay) return ({ [scheduleTarget]: allHours(hours)[scheduleTarget] });
+  if (!scheduleTarget) return allHours(hours);
   return allHours(hours);
 };
 

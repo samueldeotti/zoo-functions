@@ -1,19 +1,31 @@
 const data = require('../data/zoo_data');
 
-const getEmployeesCoverage = ({ name, id }) => {
-  if (name) {
-    const { species } = data;
-    const animals = species.map((specie) => ({ id: specie.id, name: specie.name }));
-    console.log(animals);
+const allEmployees = () => {
+  const { species, employees } = data;
+  const allAnimals = species.map((specie) =>
+    ({ id: specie.id, name: specie.name, location: specie.location }));
+  return employees.reduce((acc, curr) => {
+    const choosenAnimals = allAnimals
+      .filter((specieId) => curr.responsibleFor
+        .find((specie) => specie === specieId.id));
 
-    const { id, firstName, lastName, responsibleFor } = data.employees.find((employee) =>
-      employee.firstName === name || employee.lastName === name);
-      console.log(responsibleFor);
-    return { id,
-      fullName: `${firstName} ${lastName}`,
-      species: animals.filter((specieId) => responsibleFor
-        .find((specie) => specie === specieId.id)).map((specie) => specie.name) /* locations */ };
+    acc.push({ id: curr.id,
+      fullName: `${curr.firstName} ${curr.lastName}`,
+      species: choosenAnimals.map((specie) => specie.name),
+      locations: choosenAnimals.map((specie) => specie.location),
+    });
+    return acc;
+  }, []);
+};
+
+const getEmployeesCoverage = (employee) => {
+  if (employee) {
+    const isEmployee = allEmployees()
+      .find((worker) => worker.fullName.indexOf(employee.name) > -1 || worker.id === employee.id);
+    if (isEmployee) return isEmployee;
+    throw new Error('Informações inválidas');
   }
+  return allEmployees();
 };
 
 module.exports = getEmployeesCoverage;
