@@ -2,7 +2,7 @@ const { species } = require('../data/zoo_data');
 
 const locations = ['NE', 'NW', 'SE', 'SW'];
 
-const allLocation = () => locations.reduce((acc, curr) => {
+const allLocations = () => locations.reduce((acc, curr) => {
   acc[curr] = species.filter((specie) => specie.location === curr).map((specie) => specie.name);
   return acc;
 }, {});
@@ -18,8 +18,8 @@ const namesAnimals = (allAnimals, sorted, sex) => locations.reduce((acc, curr) =
 }, {});
 
 const getAnimalMap = (options) => {
-  if (!options || !options.includeNames) return allLocation();
-  return namesAnimals(allLocation(), options.sorted, options.sex);
+  if (!options || !options.includeNames) return allLocations();
+  return namesAnimals(allLocations(), options.sorted, options.sex);
 };
 
 module.exports = getAnimalMap;
